@@ -81,7 +81,7 @@ app.post('/api/login', async (req, res) => {
     }
 
     // Generate JWT
-    const token = jwt.sign({ id: user._id }, 'Secret_KEY', { expiresIn: '1h' });
+    const token = jwt.sign({ id: user._id }, 'SecretKey', { expiresIn: '1h' });
     res.cookie('token', token, { httpOnly: true, secure: false });
     res.json({ message: 'Login successful', token });
   } catch (error) {
@@ -100,7 +100,7 @@ const authMiddleware = (req, res, next) => {
     return res.status(401).json({ message: "Unauthorized" });
   }
 
-  jwt.verify(token, "Secret_KEY", (err, decoded) => {
+  jwt.verify(token, "SecretKey", (err, decoded) => {
     if (err) {
       return res.status(401).json({ message: "Invalid token" });
     }
